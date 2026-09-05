@@ -56,23 +56,22 @@ lcd.setCursor(0,0);
 void loop() {
 lcd.setCursor(0,1);             
    
- countDown();
+ 
+ do{
+countDown();
+ } while(timerRunning);
+
 int size = sizeof(durations) / sizeof(int);
   for (int note = 0; note < size; note++) {
-    //to calculate the note duration, take one second divided by the note type.
-    //e.g. quarter note = 1000 / 4, eighth note = 1000/8, etc.
+    
     int duration = 1000 / durations[note];
     tone(BUZZER_PIN, melody[note], duration);
 
-    //to distinguish the notes, set a minimum time between them.
-    //the note's duration + 30% seems to work well:
     int pauseBetweenNotes = duration * 1.30;
     delay(pauseBetweenNotes);
-    
-    //stop the tone playing:
+ 
     noTone(BUZZER_PIN);
   }
-
 
 delay(1000);
 }
@@ -86,15 +85,21 @@ void countDown(){
             
             previousMillis = currentMillis;
             
-            currentCount--;
+            
 
             if (currentCount > 0) {
-                
+                lcd.setCursor(0,1);
+                lcd.print("              ");
+                lcd.setCursor(0,1);
                 lcd.print( currentCount);
                 lcd.println(" seconds");
+                currentCount--;
             } 
- 
+              
             else if (currentCount == 0) {
+              lcd.setCursor(0,1);
+                lcd.print("              ");
+                lcd.setCursor(0,1);
                 lcd.println("Happy Birthday!!!");
                 timerRunning = false; 
             }
