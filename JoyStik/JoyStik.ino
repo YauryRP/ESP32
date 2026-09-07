@@ -8,6 +8,7 @@ void loop() {
   // put your main code here, to run repeatedly:
 int xVAl = analogRead(xyPins[0]);
 int yVal = analogRead(xyPins[1]);
+
 Serial.printf("X,Y: %d, \t%d\n", xVAl, yVal);
 delay(500);
 }
